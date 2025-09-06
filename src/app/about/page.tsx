@@ -1,7 +1,8 @@
 // src/app/about/page.tsx
 "use client";
 
-export default function AboutPage(): JSX.Element {
+export default function AboutPage() {
+
   return (
     <main className="min-h-screen bg-[#071022] text-white">
       {/* HERO */}
@@ -155,3 +156,4 @@ export default function AboutPage(): JSX.Element {
     </main>
   );
 }
+
