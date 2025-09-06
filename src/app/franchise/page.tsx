@@ -1,6 +1,7 @@
 "use client";
 
-export default function FranchisePage(): JSX.Element {
+export default function FranchisePage() {
+
   return (
     <main className="min-h-screen bg-[#0a0f1c] text-white">
       {/* HERO SECTION */}
@@ -111,3 +112,4 @@ export default function FranchisePage(): JSX.Element {
     </main>
   );
 }
+
