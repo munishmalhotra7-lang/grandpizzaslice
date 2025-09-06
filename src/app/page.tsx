@@ -1,194 +1,115 @@
 "use client";
 
+import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+
 import InstagramGrid from "../components/InstagramGrid";
 
+type Review = {
+  name: string;
+  rating: number; // 1-5
+  text: string;
+};
 
-export default function HomePage() {
+export default function HomePage(): JSX.Element {
+  const slides = [
+    { id: 1, title: "Hot & Fresh Pizzas", subtitle: "Made with love in Akhnoor", img: "/hero.jpg" },
+    { id: 2, title: "New Flavors Everyday", subtitle: "Try our chef specials", img: "/pizza1.jpg" },
+    { id: 3, title: "Crispy Thin Crust", subtitle: "Light, cheesy, perfect", img: "/pizza2.jpg" },
+  ];
 
-  const reviews = [
+  const reviews: Review[] = [
     {
       name: "Rahul Sharma",
-      rating: "⭐ ⭐ ⭐ ⭐ ⭐",
+      rating: 5,
       text: "Best pizza in Akhnoor! Fresh and cheesy, absolutely loved the taste.",
     },
     {
-      name: "Simran Kaur",
-      rating: "⭐ ⭐ ⭐ ⭐",
-      text: "Quick delivery and great taste. The garlic bread is my favorite!",
+      name: "Priya K.",
+      rating: 5,
+      text: "Amazing flavours — tried the peri-peri and it was awesome. Delivery fast too!",
     },
     {
-      name: "Arjun Verma",
-      rating: "⭐ ⭐ ⭐ ⭐ ⭐",
-      text: "Grand Pizza Slice never disappoints. Must try the Chef Special Pizza!",
-    },
-    {
-      name: "Priya Gupta",
-      rating: "⭐ ⭐ ⭐ ⭐",
-      text: "Great experience, tasty food and friendly service.",
+      name: "Amit Verma",
+      rating: 4,
+      text: "Good portions and good pricing. Will order again.",
     },
   ];
 
+  const renderStars = (n: number) => {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+      stars.push(
+        <svg
+          key={i}
+          className={`w-4 h-4 inline-block mr-0.5 ${i < n ? "text-yellow-400" : "text-gray-600"}`}
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          aria-hidden
+        >
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.286 3.958c.3.921-.755 1.688-1.54 1.118L10 15.347l-3.37 2.448c-.785.57-1.84-.197-1.54-1.118l1.286-3.958a1 1 0 00-.364-1.118L2.642 9.385c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.958z" />
+        </svg>
+      );
+    }
+    return <span className="inline-flex items-center">{stars}</span>;
+  };
+
   return (
-    <main className="min-h-screen bg-[#071022] text-white pt-20">
-      {/* HEADER */}
-      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/40 border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="font-extrabold text-xl text-yellow-400">
-            Grand Pizza Slice
-          </Link>
-          <nav className="space-x-6 hidden md:block">
-            <Link href="/" className="hover:text-yellow-300">Home</Link>
-            <Link href="/menu" className="hover:text-yellow-300">Menu</Link>
-            <Link href="/about" className="hover:text-yellow-300">About</Link>
-            <Link href="/franchise" className="hover:text-yellow-300">Franchise</Link>
-            <Link href="/contact" className="hover:text-yellow-300">Contact</Link>
-          </nav>
-          <div className="md:hidden">
-            <Link
-              href="/menu"
-              className="px-3 py-2 bg-yellow-500 text-black rounded-md text-sm font-semibold"
-            >
-              Menu
-            </Link>
+    <main className="min-h-screen bg-gray-900 text-gray-100">
+      {/* Top nav / header */}
+      <header className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-3">
+          <div className="w-12 h-12 relative rounded-full overflow-hidden bg-gray-700">
+            <Image src="/logo.png" alt="Grand Pizza Slice" fill sizes="48px" style={{ objectFit: "cover" }} />
           </div>
+          <div>
+            <h1 className="text-xl font-bold">Grand Pizza Slice</h1>
+            <p className="text-xs text-gray-400">Best Pizza in Akhnoor</p>
+          </div>
+        </Link>
+
+        <nav className="hidden md:flex items-center gap-6 text-sm">
+          <Link href="/menu" className="hover:text-white">Menu</Link>
+          <Link href="/gallery" className="hover:text-white">Gallery</Link>
+          <Link href="/franchise" className="hover:text-white">Franchise</Link>
+          <Link href="/contact" className="bg-yellow-500 text-gray-900 px-3 py-1 rounded-md font-semibold">Order Now</Link>
+        </nav>
+
+        {/* mobile menu button (simple) */}
+        <div className="md:hidden">
+          <Link href="/menu" className="bg-yellow-500 text-gray-900 px-3 py-1 rounded-md font-semibold">Menu</Link>
         </div>
       </header>
 
-      {/* HERO */}
-      <section
-        className="relative bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(2,6,23,0.7), rgba(2,6,23,0.7)), url('/hero-pizza.jpg')",
-        }}
-      >
-        <div className="max-w-6xl mx-auto px-6 py-40 text-center">
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-4 text-yellow-400 drop-shadow-lg">
-            Welcome
-          </h1>
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            Grand Pizza Slice
-          </h2>
-          <p className="text-gray-200 max-w-3xl mx-auto mb-8 text-lg">
-            Fresh dough, house-made sauces and the boldest flavours —
-            delivered hot to your doorstep from our kitchen in Jammu.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/menu"
-              className="px-8 py-3 bg-yellow-500 text-black font-semibold rounded-full shadow-lg hover:bg-yellow-400 transition transform hover:scale-105"
-            >
-              View Menu
-            </a>
-            <Link
-              href="/franchise"
-              className="px-8 py-3 border border-yellow-400 rounded-full hover:bg-yellow-400 hover:text-black transition font-semibold shadow-lg"
-            >
-              Franchise Info
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* WHY CHOOSE US */}
-      <section className="max-w-6xl mx-auto px-6 py-20">
-        <h2 className="text-3xl font-bold text-center mb-12">
-          Why choose <span className="text-yellow-400">Grand Pizza Slice</span>?
-        </h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-gray-900 p-8 rounded-2xl text-center border border-gray-700 hover:border-yellow-400 hover:shadow-xl transition transform hover:scale-105">
-            <div className="text-5xl mb-4">🚀</div>
-            <h3 className="text-xl font-semibold mb-2">Fast Delivery</h3>
-            <p className="text-gray-400">
-              Hot pizzas delivered quickly to your door.
-            </p>
-          </div>
-
-          <div className="bg-gray-900 p-8 rounded-2xl text-center border border-gray-700 hover:border-yellow-400 hover:shadow-xl transition transform hover:scale-105">
-            <div className="text-5xl mb-4">🧀</div>
-            <h3 className="text-xl font-semibold mb-2">Premium Ingredients</h3>
-            <p className="text-gray-400">
-              Real cheese, fresh veggies and handcrafted sauces.
-            </p>
-          </div>
-
-          <div className="bg-gray-900 p-8 rounded-2xl text-center border border-gray-700 hover:border-yellow-400 hover:shadow-xl transition transform hover:scale-105">
-            <div className="text-5xl mb-4">🤝</div>
-            <h3 className="text-xl font-semibold mb-2">Franchise Ready</h3>
-            <p className="text-gray-400">
-              Support, training and marketing for partners.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* BEST SELLERS */}
-      <section className="bg-[#101726] py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Our Best Sellers
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-800 hover:border-yellow-400 hover:shadow-2xl transition transform hover:scale-105">
-              <img
-                src="/best1.jpg"
-                alt="Chef Special Pizza"
-                className="w-full h-56 object-cover"
-              />
-              <div className="p-6 text-center">
-                <h3 className="font-semibold text-xl mb-2">Chef Special Pizza</h3>
-              </div>
-            </div>
-
-            <div className="bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-800 hover:border-yellow-400 hover:shadow-2xl transition transform hover:scale-105">
-              <img
-                src="/best2.jpg"
-                alt="Cheese & Corn Pizza"
-                className="w-full h-56 object-cover"
-              />
-              <div className="p-6 text-center">
-                <h3 className="font-semibold text-xl mb-2">Cheese & Corn Pizza</h3>
-              </div>
-            </div>
-
-            <div className="bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-800 hover:border-yellow-400 hover:shadow-2xl transition transform hover:scale-105">
-              <img
-                src="/best3.jpg"
-                alt="Cheese Sandwich"
-                className="w-full h-56 object-cover"
-              />
-              <div className="p-6 text-center">
-                <h3 className="font-semibold text-xl mb-2">Cheese Sandwich</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* REVIEWS SECTION */}
-      <section className="bg-[#0f172a] py-16 px-6 text-white">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-10 text-yellow-400">
-            What Our Customers Say
-          </h2>
+      {/* Hero slider */}
+      <section className="max-w-6xl mx-auto px-4">
+        <div className="rounded-xl overflow-hidden shadow-lg">
           <Swiper
-            spaceBetween={30}
-            slidesPerView={1}
-            loop={true}
-            autoplay={{ delay: 4000 }}
             modules={[Autoplay]}
+            autoplay={{ delay: 4000, disableOnInteraction: false }}
+            loop
+            slidesPerView={1}
+            className="rounded-xl"
           >
-            {reviews.map((review, i) => (
-              <SwiperSlide key={i}>
-                <div className="bg-gray-900 p-8 rounded-xl shadow-lg border border-yellow-400 max-w-2xl mx-auto">
-                  <p className="text-lg mb-4 italic">“{review.text}”</p>
-                  <div className="font-bold text-yellow-400">{review.rating}</div>
-                  <div className="mt-2 text-gray-300">- {review.name}</div>
+            {slides.map((s) => (
+              <SwiperSlide key={s.id}>
+                <div className="relative w-full h-[420px] md:h-[520px] flex items-center">
+                  <Image src={s.img} alt={s.title} fill sizes="(max-width: 768px) 100vw, 1200px" style={{ objectFit: "cover" }} />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent"></div>
+
+                  <div className="relative z-10 max-w-4xl px-6 md:px-12">
+                    <h2 className="text-3xl md:text-5xl font-extrabold">{s.title}</h2>
+                    <p className="mt-2 text-gray-300 max-w-lg">{s.subtitle}</p>
+
+                    <div className="mt-6 flex gap-3">
+                      <Link href="/menu" className="bg-yellow-500 text-gray-900 px-4 py-2 rounded-md font-semibold shadow">See Menu</Link>
+                      <Link href="/contact" className="border border-gray-600 px-4 py-2 rounded-md text-gray-200 hover:bg-white/5">Contact / Order</Link>
+                    </div>
+                  </div>
                 </div>
               </SwiperSlide>
             ))}
@@ -196,38 +117,98 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* INSTAGRAM GRID */}
-      <InstagramGrid />
+      {/* Quick features / highlights */}
+      <section className="max-w-6xl mx-auto px-4 mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="p-4 bg-gray-800 rounded-lg flex items-start gap-4">
+          <div className="w-12 h-12 rounded-md bg-yellow-500 flex items-center justify-center font-bold text-gray-900">B</div>
+          <div>
+            <h3 className="font-semibold">Best Ingredients</h3>
+            <p className="text-sm text-gray-400">Fresh dough, real cheese, premium toppings.</p>
+          </div>
+        </div>
 
-      {/* CTA SECTION */}
-      <section className="text-center py-20 px-6 bg-gradient-to-r from-yellow-500 to-yellow-600">
-        <h2 className="text-3xl font-bold mb-4 text-black">Love Pizza? 🍕</h2>
-        <p className="text-black mb-6 font-medium">
-          Order now and taste the best pizza in Jammu!
-        </p>
-        <a
-          href="https://www.zomato.com/jammu/grand-pizza-slice-akhnoor"
-          target="_blank"
-          rel="noreferrer"
-          className="bg-black text-yellow-400 px-8 py-4 rounded-full font-bold shadow-lg hover:bg-gray-800 transition"
-        >
-          Order on Zomato
-        </a>
+        <div className="p-4 bg-gray-800 rounded-lg flex items-start gap-4">
+          <div className="w-12 h-12 rounded-md bg-yellow-500 flex items-center justify-center font-bold text-gray-900">D</div>
+          <div>
+            <h3 className="font-semibold">Fast Delivery</h3>
+            <p className="text-sm text-gray-400">Hot pizza delivered fast in Akhnoor and nearby areas.</p>
+          </div>
+        </div>
+
+        <div className="p-4 bg-gray-800 rounded-lg flex items-start gap-4">
+          <div className="w-12 h-12 rounded-md bg-yellow-500 flex items-center justify-center font-bold text-gray-900">O</div>
+          <div>
+            <h3 className="font-semibold">Online Ordering</h3>
+            <p className="text-sm text-gray-400">Order via WhatsApp or our website — simple & secure.</p>
+          </div>
+        </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="py-10 bg-gray-950 text-center border-t border-gray-800">
-        <p className="mb-4 text-gray-400">
-          © 2025 Malhotra Technologies Pvt Ltd. All Rights Reserved.
-        </p>
-        <a
-          href="https://www.zomato.com/jammu/grand-pizza-slice-akhnoor"
-          target="_blank"
-          rel="noreferrer"
-          className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-full font-semibold shadow-lg transition"
-        >
-          Order on Zomato
-        </a>
+      {/* Reviews */}
+      <section className="max-w-6xl mx-auto px-4 mt-10">
+        <h3 className="text-2xl font-bold">Customer Reviews</h3>
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+          {reviews.map((r, idx) => (
+            <div key={idx} className="p-4 bg-gray-800 rounded-lg">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-lg font-semibold">
+                  {r.name.charAt(0)}
+                </div>
+                <div>
+                  <div className="font-semibold">{r.name}</div>
+                  <div className="text-sm text-gray-400">{renderStars(r.rating)}</div>
+                </div>
+              </div>
+
+              <p className="mt-3 text-gray-300 text-sm">"{r.text}"</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Instagram / Gallery */}
+      <section className="max-w-6xl mx-auto px-4 mt-10">
+        <h3 className="text-2xl font-bold">From Our Instagram</h3>
+        <p className="text-sm text-gray-400 mt-1">Tag us @grandpizzaslice to get featured</p>
+
+        <div className="mt-4">
+          {/* InstagramGrid should handle its own layout; keep container dark */}
+          <div className="bg-transparent rounded-lg">
+            <InstagramGrid />
+          </div>
+        </div>
+      </section>
+
+      {/* Call to action strip */}
+      <section className="mt-10 bg-gradient-to-r from-gray-800 to-gray-900 py-8">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div>
+            <h4 className="text-xl font-bold">Order a pizza now — hot & fresh!</h4>
+            <p className="text-sm text-gray-400">WhatsApp orders available. Quick delivery in Akhnoor.</p>
+          </div>
+
+          <div className="flex gap-3">
+            <a href="https://wa.me/919103399555" target="_blank" rel="noreferrer" className="bg-green-600 px-4 py-2 rounded-md font-semibold">WhatsApp Order</a>
+            <Link href="/menu" className="border border-gray-700 px-4 py-2 rounded-md text-gray-200">See Menu</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="mt-12 border-t border-gray-800 pt-6 pb-12">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between gap-6">
+          <div>
+            <h5 className="font-bold">Grand Pizza Slice</h5>
+            <p className="text-sm text-gray-400">Akhnoor, Jammu — Open daily 11:00 - 23:00</p>
+            <p className="text-sm text-gray-400 mt-2">Call / WhatsApp: +91 91033 99555</p>
+          </div>
+
+          <div className="flex gap-6">
+            <Link href="/privacy" className="text-sm text-gray-400 hover:text-white">Privacy</Link>
+            <Link href="/terms" className="text-sm text-gray-400 hover:text-white">Terms</Link>
+            <Link href="/franchise" className="text-sm text-gray-400 hover:text-white">Franchise</Link>
+          </div>
+        </div>
       </footer>
     </main>
   );
