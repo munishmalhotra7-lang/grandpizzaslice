@@ -1,6 +1,7 @@
 "use client";
 
-export default function MenuPage(): JSX.Element {
+export default function MenuPage() {
+
   return (
     <main className="min-h-screen bg-[#0a0f1c] text-white py-12 px-6">
       <h1 className="text-5xl font-extrabold text-center mb-12 text-yellow-400 drop-shadow-lg">
@@ -91,3 +92,4 @@ export default function MenuPage(): JSX.Element {
     </main>
   );
 }
+
