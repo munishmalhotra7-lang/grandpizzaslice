@@ -7,7 +7,8 @@ import "swiper/css";
 import InstagramGrid from "../components/InstagramGrid";
 
 
-export default function HomePage(): JSX.Element {
+export default function HomePage() {
+
   const reviews = [
     {
       name: "Rahul Sharma",
