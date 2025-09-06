@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 
-export default function InstagramGrid(): JSX.Element {
+export default function InstagramGrid() {
+
   const images = [
     "/insta1.jpg",
     "/insta2.jpg",
@@ -48,3 +49,4 @@ export default function InstagramGrid(): JSX.Element {
     </section>
   );
 }
+
