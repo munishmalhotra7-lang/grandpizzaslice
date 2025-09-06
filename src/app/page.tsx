@@ -4,7 +4,8 @@ import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
-import InstagramGrid from "@/components/InstagramGrid";
+import InstagramGrid from "../components/InstagramGrid";
+
 
 export default function HomePage(): JSX.Element {
   const reviews = [
