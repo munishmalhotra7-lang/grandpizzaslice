@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 
-export default function ContactPage(): JSX.Element {
+export default function ContactPage() {
+
   return (
     <main className="min-h-screen bg-[#071022] text-white pt-20">
       {/* HEADER */}
@@ -160,3 +161,4 @@ export default function ContactPage(): JSX.Element {
     </main>
   );
 }
+
